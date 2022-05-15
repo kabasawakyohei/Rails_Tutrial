@@ -1,8 +1,12 @@
 class StaticPagesController < ApplicationController
   def home
-    render html:"こんにちは"
   end
 
   def help
   end
+
+  def about
+  end
+
+
 end
