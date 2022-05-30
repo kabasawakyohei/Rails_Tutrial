@@ -9,7 +9,8 @@ class SessionsController < ApplicationController
     if !user.nil? && user.authenticate(params[:session][:password])
       log_in(user)
       remember(user)
-      redirect_to user
+      # userはユーザーのプロフィールページになる
+      redirect_original_url user
     else
       flash[:danger] = "emailとパスワードが違います"
       render 'new'
