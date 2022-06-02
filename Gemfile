@@ -15,9 +15,10 @@ gem 'pry-rails'
 gem 'image_processing', '~> 1.2'
 gem 'bootstrap-sass', '3.4.1'
 gem 'bootsnap', '>= 1.4.4', require: false
-
+gem 'faker','2.18.0'
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+gem 'kaminari'
 end
 
 group :development do
