@@ -21,4 +21,9 @@ Rails.application.routes.draw do
   
   # ユーザーリソース
   resources :users
+  # メールの有効化リソース
+  resources :account_activations, only: [:edit]
+
+  # ツイートリソース
+  resources :tweets, only: [:create, :destroy]
 end

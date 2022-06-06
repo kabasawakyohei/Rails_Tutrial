@@ -8,4 +8,13 @@
       </h1>
     </section>
   </aside>
+    <div class="col-md-8">
+    <% if @user.tweets.any? %>
+      <h3>tweets (<%= @user.tweets.count %>)</h3>
+      <ol class="microposts">
+        <%= render @tweets %>
+      </ol>
+      <%= paginate @tweets %>
+    <% end %>
+  </div>
 </div>

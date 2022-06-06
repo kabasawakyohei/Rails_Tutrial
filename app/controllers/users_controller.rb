@@ -13,16 +13,20 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @tweets = @user.tweets.page(params[:page])
     @time = Time.now
   end
 
   def create
     @user = User.new(user_params)
+    Rails.logger.debug "----------- 1 -------------"
     if @user.save
-      log_in @user
-      flash[:success] = "ようこそ！！！"
-      redirect_to @user
+      Rails.logger.debug "----------- 2 -------------"
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "届いたメールにて本人確認を実施してください"
+      redirect_to root_url
     else
+      Rails.logger.debug "----------- 3 -------------"
       render 'new'
     end
   end
@@ -49,19 +53,10 @@ class UsersController < ApplicationController
 
 
   private
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
-  end
-
-    # ログイン済みユーザーかどうか確認
-    def logged_in_user
-      unless logged_in?
-        # getリクエストで投げられてきたurlをセッションに記憶する
-        store_location
-        flash[:danger] = "ログインしてください！"
-        redirect_to login_url
-      end
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
+
 
     # 自身のアカウントでログインしているか確認
     def correct_user 
